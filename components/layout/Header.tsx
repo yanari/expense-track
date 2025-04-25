@@ -1,3 +1,6 @@
+import * as Dialog from '@radix-ui/react-dialog'
+import { NewTransactionModal } from './NewTransactionModal'
+
 export function Header() {
     return (
         <div className="bg-base-100 shadow-sm">
@@ -6,7 +9,15 @@ export function Header() {
                     <a className="btn btn-ghost text-xl">Expense Track</a>
                 </div>
                 <div className="flex-none">
-                    <button className="btn btn-ghost">New Transaction</button>
+                    <Dialog.Root>
+                        <Dialog.Trigger asChild>
+                            <button className="btn btn-primary">
+                                New Transaction
+                            </button>
+                        </Dialog.Trigger>
+
+                        <NewTransactionModal />
+                    </Dialog.Root>
                 </div>
             </div>
         </div>
