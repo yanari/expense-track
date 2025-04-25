@@ -1,27 +1,35 @@
 import { SearchForm } from '@/components/(root)/SearchForm'
 import { Summary } from '@/components/layout/Summary'
+import { createClient } from '@/utils/supabase/server'
 
-export default function Home() {
+export default async function Home() {
+    const supabase = await createClient()
+    const { data: transactions } = await supabase.from('transactions').select()
+
     return (
         <div className="max-w-4xl m-auto gap-6 my-10 grid items-center justify-items-center font-[family-name:var(--font-roboto)]">
             <Summary />
             <SearchForm />
 
-            <div className="overflow-x-auto mt-10">
+            <div className="overflow-x-auto">
                 <table className="table table-zebra w-4xl">
                     <tbody>
-                        <tr>
-                            <td>Desenvolvimento de site</td>
-                            <td>R$ 12.000,00</td>
-                            <td>Venda</td>
-                            <td>24/04/2025</td>
-                        </tr>
-                        <tr>
-                            <td>Compras</td>
-                            <td>R$ 1.000,00</td>
-                            <td>Alimentação</td>
-                            <td>24/04/2025</td>
-                        </tr>
+                        {transactions?.map((transaction) => {
+                            const priceClassname =
+                                transaction.type === 'outcome'
+                                    ? 'text-red-600'
+                                    : 'text-green-700'
+                            return (
+                                <tr key={transaction.id}>
+                                    <td>{transaction.description}</td>
+                                    <td className={priceClassname}>
+                                        R$ {transaction.price}
+                                    </td>
+                                    <td>{transaction.category}</td>
+                                    <td>{transaction.created_at}</td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </div>

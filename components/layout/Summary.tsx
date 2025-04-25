@@ -8,7 +8,7 @@ import {
 
 export function Summary() {
     return (
-        <div className="stats shadow max-w-4xl">
+        <div className="stats shadow max-w-4xl mb-10">
             <div className="stat">
                 <div className="stat-figure text-primary">
                     <ArrowCircleUp className="inline-block h-8 w-8 stroke-current" />

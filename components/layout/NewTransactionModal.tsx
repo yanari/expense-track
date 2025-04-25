@@ -1,7 +1,8 @@
 'use client'
 
-import { X } from '@phosphor-icons/react'
+import { ArrowCircleDown, ArrowCircleUp, X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
+import * as RadioGroup from '@radix-ui/react-radio-group'
 
 export function NewTransactionModal() {
     return (
@@ -15,7 +16,11 @@ export function NewTransactionModal() {
                     <X size={24} />
                 </Dialog.Close>
 
-                <form className="grid gap-4 mt-8">
+                <Dialog.Description hidden>
+                    Form to create new transaction.
+                </Dialog.Description>
+
+                <form className="grid gap-6 mt-8">
                     <input
                         type="text"
                         placeholder="Description"
@@ -31,6 +36,28 @@ export function NewTransactionModal() {
                         placeholder="Category"
                         className="input w-full"
                     />
+                    <RadioGroup.Root className="join gap-4">
+                        <RadioGroup.Item
+                            value="income"
+                            className="btn-soft group btn btn-ghost join-item flex-1 data-checked:bg-green-700"
+                        >
+                            <ArrowCircleUp
+                                className="text-green-700 group-data-checked:text-current"
+                                size={24}
+                            />
+                            Entrada
+                        </RadioGroup.Item>
+                        <RadioGroup.Item
+                            value="outcome"
+                            className="btn-soft group btn btn-ghost join-item flex-1 data-checked:bg-red-700"
+                        >
+                            Saída
+                            <ArrowCircleDown
+                                className="text-red-700 group-data-checked:text-current"
+                                size={24}
+                            />
+                        </RadioGroup.Item>
+                    </RadioGroup.Root>
 
                     <button className="btn btn-primary">Submit</button>
                 </form>
