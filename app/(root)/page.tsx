@@ -1,10 +1,11 @@
+'use client'
+
 import { SearchForm } from '@/components/(root)/SearchForm'
 import { Summary } from '@/components/layout/Summary'
-import { createClient } from '@/utils/supabase/server'
+import { useTransactions } from '@/contexts/Transactions'
 
-export default async function Home() {
-    const supabase = await createClient()
-    const { data: transactions } = await supabase.from('transactions').select()
+export default function Home() {
+    const { transactions } = useTransactions()
 
     return (
         <div className="max-w-4xl m-auto gap-6 my-10 grid items-center justify-items-center font-[family-name:var(--font-roboto)]">
